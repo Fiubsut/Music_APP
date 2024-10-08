@@ -14,7 +14,7 @@ const login = async (req, res) => {
   try {
     const { Email, Password } = req.body;
     const token = await userService.login(Email, Password);
-    res.status(200).json({ token });
+    res.status(200).json(token);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -30,6 +30,15 @@ const getUser = async (req, res) => {
   }
 };
 
+const getAllUsers = async (req, res) => {
+  try {
+    const users = await userService.getAllUsers();
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
 const deleteUser = async (req, res) => {
     try {
       await userService.deleteUser(req.params.id);
@@ -39,9 +48,22 @@ const deleteUser = async (req, res) => {
     }
   };
 
+const changeInfor = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updatedUser = await userService.changeInfor(id, req.body);
+    res.status(200).json({ message: 'User information updated successfully', user: updatedUser });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+
 module.exports = {
   register,
   login,
   getUser,
+  getAllUsers,
   deleteUser,
+  changeInfor,
 };

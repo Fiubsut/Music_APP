@@ -3,15 +3,16 @@ const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/user.controller.js');
 
-// Đăng ký người dùng
 router.post('/register', userController.register);
 
-// Đăng nhập người dùng
 router.post('/login', userController.login);
 
-// Lấy thông tin người dùng
 router.get('/:id', userController.getUser);
 
+router.get('/', userController.getAllUsers);
+
 router.delete('/:id', userController.deleteUser);
+
+router.put('/:id', userController.changeInfor);
 
 module.exports = router;

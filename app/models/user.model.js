@@ -43,9 +43,9 @@ const userSchema = new mongoose.Schema({
 //   }
 // });
 
-// Phương thức so sánh mật khẩu
-userSchema.methods.validPassword = async function (password) {
-  return await bcrypt.compare(password, this.Password);
-};
+// // Phương thức so sánh mật khẩu
+// userSchema.methods.validPassword = async function (password) {
+//   return await bcrypt.compare(password, this.Password);
+// };
 
 module.exports = mongoose.model('User', userSchema);
