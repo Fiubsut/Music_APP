@@ -1,4 +1,3 @@
-// models/Playlist.js
 const mongoose = require('mongoose');
 
 const playlistSchema = new mongoose.Schema({

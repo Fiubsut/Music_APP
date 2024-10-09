@@ -1,4 +1,3 @@
-// services/likeService.js
 const Like = require('../models/like.model.js');
 
 const createLike = async (likeData) => {

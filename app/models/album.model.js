@@ -1,4 +1,3 @@
-// models/Album.js
 const mongoose = require('mongoose');
 
 const albumSchema = new mongoose.Schema({

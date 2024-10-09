@@ -1,4 +1,3 @@
-// models/Genre.js
 const mongoose = require('mongoose');
 
 const genreSchema = new mongoose.Schema({

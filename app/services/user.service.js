@@ -1,4 +1,3 @@
-// services/userService.js
 const User = require('../models/user.model.js');
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
@@ -7,9 +6,14 @@ require('dotenv').config();
 
 
 const register = async (userData) => {
+  // const existingUser = await User.findOne({ email: userData.email });
+  // if (existingUser) {
+  //   // Bạn có thể tùy chỉnh thông báo lỗi theo ý muốn
+  //   throw new Error('Email này đã được sử dụng. Vui lòng sử dụng email khác.');
+  // }
   const user = new User(userData);
   const hashedPassword = await bcrypt.hash(user.password, 10);
-  user.password = hashedPassword
+  user.password = hashedPassword;
   await user.save();
   return user;
 };
@@ -35,7 +39,7 @@ const getUserById = async (id) => {
 
 const getAllUsers = async () => {
   const users = await User.find();
-  if(!user) throw new Error('There are no users in the database!!!')
+  if(!users) throw new Error('There are no users in the database!!!')
   return users;
 };
 

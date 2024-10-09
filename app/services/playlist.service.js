@@ -1,4 +1,3 @@
-// services/playlistService.js
 const Playlist = require('../models/playlist.model.js');
 
 const createPlaylist = async (playlistData) => {

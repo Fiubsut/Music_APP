@@ -1,4 +1,3 @@
-// controllers/trackController.js
 const trackService = require('../services/track.service.js');
 
 const createTrack = async (req, res) => {

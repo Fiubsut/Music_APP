@@ -1,4 +1,3 @@
-// services/albumService.js
 const Album = require('../models/album.model.js');
 
 const createAlbum = async (albumData) => {

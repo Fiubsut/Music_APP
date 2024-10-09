@@ -1,4 +1,3 @@
-// controllers/playlistController.js
 const playlistService = require('../services/playlist.service.js');
 
 const createPlaylist = async (req, res) => {

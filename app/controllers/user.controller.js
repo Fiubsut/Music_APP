@@ -1,4 +1,3 @@
-// controllers/userController.js
 const userService = require('../services/user.service.js');
 
 const register = async (req, res) => {
@@ -12,8 +11,8 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
   try {
-    const { Email, Password } = req.body;
-    const token = await userService.login(Email, Password);
+    const { email, password } = req.body;
+    const token = await userService.login(email, password);
     res.status(200).json(token);
   } catch (error) {
     res.status(400).json({ error: error.message });

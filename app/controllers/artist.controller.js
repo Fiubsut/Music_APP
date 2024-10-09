@@ -1,4 +1,3 @@
-// controllers/artistController.js
 const artistService = require('../services/artist.service.js');
 
 const createArtist = async (req, res) => {

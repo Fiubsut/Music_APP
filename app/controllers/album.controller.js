@@ -1,4 +1,3 @@
-// controllers/albumController.js
 const albumService = require('../services/album.service.js');
 
 const createAlbum = async (req, res) => {

@@ -1,4 +1,3 @@
-// controllers/genreController.js
 const genreService = require('../services/genre.service.js');
 
 const createGenre = async (req, res) => {

@@ -1,4 +1,3 @@
-// services/artistService.js
 const Artist = require('../models/artist.model.js');
 
 const createArtist = async (artistData) => {
