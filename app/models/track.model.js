@@ -2,28 +2,23 @@
 const mongoose = require('mongoose');
 
 const trackSchema = new mongoose.Schema({
-  TrackID: {
-    type: Number,
-    unique: true,
-    required: true,
-  },
-  TrackName: {
+  trackName: {
     type: String,
     required: true,
     trim: true,
   },
-  AlbumID: {
-    type: mongoose.Schema.Types.Number,
+  albumID: {
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Album',
     required: true,
   },
-  ArtistID: {
-    type: mongoose.Schema.Types.Number,
+  artistID: {
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Artist',
     required: true,
   },
-  GenreIDs: [{
-    type: mongoose.Schema.Types.Number,
+  genreIDs: [{
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Genre',
   }],
 }, { timestamps: true });

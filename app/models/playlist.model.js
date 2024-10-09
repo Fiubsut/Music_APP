@@ -2,27 +2,22 @@
 const mongoose = require('mongoose');
 
 const playlistSchema = new mongoose.Schema({
-  PlaylistID: {
-    type: Number,
-    unique: true,
-    required: true,
-  },
-  PlaylistName: {
+  playlistName: {
     type: String,
     required: true,
     trim: true,
   },
-  UserID: {
-    type: mongoose.Schema.Types.Number,
+  userID: {
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true,
   },
-  CreationDate: {
+  creationDate: {
     type: Date,
     default: Date.now,
   },
-  TrackIDs: [{
-    type: mongoose.Schema.Types.Number,
+  trackIDs: [{
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Track',
   }],
 }, { timestamps: true });

@@ -2,21 +2,21 @@
 const express = require('express');
 const router = express.Router();
 const playlistController = require('../controllers/playlist.controller.js');
-const authenticate = require('../middlewares/authMiddleware.js');
+// const authenticate = require('../middlewares/authMiddleware.js');
 
-// Tạo playlist mới (yêu cầu xác thực)
-router.post('/', authenticate, playlistController.createPlaylist);
+// Tạo playlist mới
+router.post('/', playlistController.createPlaylist);
 
 // Lấy tất cả playlist
-router.get('/', authenticate, playlistController.getAllPlaylists);
+router.get('/', playlistController.getAllPlaylists);
 
-// Lấy thông tin playlist theo ID (yêu cầu xác thực)
-router.get('/:id', authenticate, playlistController.getPlaylist);
+// Lấy thông tin playlist theo ID 
+router.get('/:id', playlistController.getPlaylist);
 
-// Cập nhật thông tin playlist (yêu cầu xác thực)
-router.put('/:id', authenticate, playlistController.updatePlaylist);
+// Cập nhật thông tin playlist
+router.put('/:id', playlistController.updatePlaylist);
 
-// Xóa playlist (yêu cầu xác thực)
-router.delete('/:id', authenticate, playlistController.deletePlaylist);
+// Xóa playlist
+router.delete('/:id', playlistController.deletePlaylist);
 
 module.exports = router;

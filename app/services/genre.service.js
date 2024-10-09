@@ -2,10 +2,6 @@
 const Genre = require('../models/genre.model.js');
 
 const createGenre = async (genreData) => {
-  const lastGenre = await Genre.findOne().sort({ GenreID: -1 });
-  const newGenreID = lastGenre ? lastGenre.GenreID + 1 : 1;
-  genreData.GenreID = newGenreID;
-
   const genre = new Genre(genreData);
   await genre.save();
   return genre;
@@ -17,18 +13,18 @@ const getAllGenres = async () => {
 };
 
 const getGenreById = async (id) => {
-  const genre = await Genre.findOne({ GenreID: id });
+  const genre = await Genre.findOne({ _id: id });
   return genre;
 };
 
 const updateGenre = async (id, updateData) => {
-  const genre = await Genre.findOneAndUpdate({ GenreID: id }, updateData, { new: true });
+  const genre = await Genre.findOneAndUpdate({ _id: id }, updateData, { new: true });
   if (!genre) throw new Error('Genre not found');
   return genre;
 };
 
 const deleteGenre = async (id) => {
-  const genre = await Genre.findOneAndDelete({ GenreID: id });
+  const genre = await Genre.findOneAndDelete({ _id: id });
   if (!genre) throw new Error('Genre not found');
   return;
 };

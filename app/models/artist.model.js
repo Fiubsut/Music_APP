@@ -2,21 +2,16 @@
 const mongoose = require('mongoose');
 
 const artistSchema = new mongoose.Schema({
-  ArtistID: {
-    type: Number,
-    unique: true,
-    required: true,
-  },
-  ArtistName: {
+  artistName: {
     type: String,
     required: true,
     trim: true,
   },
-  Genre: {
+  genre: {
     type: String,
     default: '',
   },
-  Country: {
+  country: {
     type: String,
     default: '',
   },

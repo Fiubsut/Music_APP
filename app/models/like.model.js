@@ -2,22 +2,17 @@
 const mongoose = require('mongoose');
 
 const likeSchema = new mongoose.Schema({
-  LikeID: {
-    type: Number,
-    unique: true,
-    required: true,
-  },
-  UserID: {
-    type: mongoose.Schema.Types.Number,
+  userID: {
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true,
   },
-  TrackID: {
-    type: mongoose.Schema.Types.Number,
+  trackID: {
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Track',
     required: true,
   },
-  DateLiked: {
+  dateLiked: {
     type: Date,
     default: Date.now,
   },

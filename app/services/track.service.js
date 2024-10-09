@@ -2,9 +2,6 @@
 const Track = require('../models/track.model.js');
 
 const createTrack = async (trackData) => {
-  const lastTrack = await Track.findOne().sort({ TrackID: -1 });
-  const newTrackID = lastTrack ? lastTrack.TrackID + 1 : 1;
-  trackData.TrackID = newTrackID;
 
   const track = new Track(trackData);
   await track.save();
@@ -13,31 +10,31 @@ const createTrack = async (trackData) => {
 
 const getAllTracks = async () => {
   const tracks = await Track.find()
-    .populate('AlbumID', 'AlbumName')
-    .populate('ArtistID', 'ArtistName')
-    .populate('GenreIDs', 'GenreName');
+    .populate('albumID', 'albumName')
+    .populate('artistID', 'artistName')
+    .populate('genreIDs', 'genreName');
   return tracks;
 };
 
 const getTrackById = async (id) => {
-  const track = await Track.findOne({ TrackID: id })
-    .populate('AlbumID', 'AlbumName')
-    .populate('ArtistID', 'ArtistName')
-    .populate('GenreIDs', 'GenreName');
+  const track = await Track.findOne({ _id: id })
+    .populate('albumID', 'albumName')
+    .populate('artistID', 'artistName')
+    .populate('genreIDs', 'genreName');
   return track;
 };
 
 const updateTrack = async (id, updateData) => {
-  const track = await Track.findOneAndUpdate({ TrackID: id }, updateData, { new: true })
-    .populate('AlbumID', 'AlbumName')
-    .populate('ArtistID', 'ArtistName')
-    .populate('GenreIDs', 'GenreName');
+  const track = await Track.findOneAndUpdate({ _id: id }, updateData, { new: true })
+    .populate('albumID', 'albumName')
+    .populate('artistID', 'artistName')
+    .populate('genreIDs', 'genreName');
   if (!track) throw new Error('Track not found');
   return track;
 };
 
 const deleteTrack = async (id) => {
-  const track = await Track.findOneAndDelete({ TrackID: id });
+  const track = await Track.findOneAndDelete({ _id: id });
   if (!track) throw new Error('Track not found');
   return;
 };

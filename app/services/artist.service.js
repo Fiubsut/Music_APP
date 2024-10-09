@@ -2,9 +2,6 @@
 const Artist = require('../models/artist.model.js');
 
 const createArtist = async (artistData) => {
-  const lastArtist = await Artist.findOne().sort({ ArtistID: -1 });
-  const newArtistID = lastArtist ? lastArtist.ArtistID + 1 : 1;
-  artistData.ArtistID = newArtistID;
 
   const artist = new Artist(artistData);
   await artist.save();
@@ -17,18 +14,18 @@ const getAllArtists = async () => {
 };
 
 const getArtistById = async (id) => {
-  const artist = await Artist.findOne({ ArtistID: id });
+  const artist = await Artist.findOne({ _id: id });
   return artist;
 };
 
 const updateArtist = async (id, updateData) => {
-  const artist = await Artist.findOneAndUpdate({ ArtistID: id }, updateData, { new: true });
+  const artist = await Artist.findOneAndUpdate({ _id: id }, updateData, { new: true });
   if (!artist) throw new Error('Artist not found');
   return artist;
 };
 
 const deleteArtist = async (id) => {
-  const artist = await Artist.findOneAndDelete({ ArtistID: id });
+  const artist = await Artist.findOneAndDelete({ _id: id });
   if (!artist) throw new Error('Artist not found');
   return;
 };

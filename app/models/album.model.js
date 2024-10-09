@@ -2,26 +2,21 @@
 const mongoose = require('mongoose');
 
 const albumSchema = new mongoose.Schema({
-  AlbumID: {
-    type: Number,
-    unique: true,
-    required: true,
-  },
-  AlbumName: {
+  albumName: {
     type: String,
     required: true,
     trim: true,
   },
-  ReleaseDate: {
+  releaseDate: {
     type: Date,
     required: true,
   },
-  ArtistID: {
-    type: mongoose.Schema.Types.Number,
+  artistID: {
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Artist',
     required: true,
   },
-  CoverImage: {
+  coverImage: {
     type: String,
     default: '',
   },
