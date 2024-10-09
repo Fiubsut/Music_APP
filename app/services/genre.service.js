@@ -1,7 +1,6 @@
 const Genre = require('../models/genre.model.js');
 
 const createGenre = async (genreData) => {
-  console.log(genreData)
   const genre = new Genre(genreData);
   await genre.save();
   return genre;
