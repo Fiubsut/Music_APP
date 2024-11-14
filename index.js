@@ -7,11 +7,14 @@ const genreRoutes = require('./app/routes/genre.route.js');
 const trackRoutes = require('./app/routes/track.route.js');
 const playlistRoutes = require('./app/routes/playlist.route.js');
 const likeRoutes = require('./app/routes/user.route.js');
+const adminRoutes = require('./app/routes/admin.route.js')
+const cors = require('cors');
 require('dotenv').config();
 
 
 
 const app = express();
+app.use(cors());
 
 app.use(express.json());
 connectDB();
@@ -23,6 +26,7 @@ app.use('/api/genres', genreRoutes);
 app.use('/api/tracks', trackRoutes);
 app.use('/api/playlists', playlistRoutes);
 app.use('/api/likes', likeRoutes);
+app.use('/api/admin', adminRoutes)
 
 
 

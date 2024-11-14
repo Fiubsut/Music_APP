@@ -9,7 +9,7 @@ const trackSchema = new mongoose.Schema({
   albumID: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Album',
-    required: true,
+    required: false,
   },
   artistID: {
     type: mongoose.Schema.Types.ObjectId,
@@ -20,6 +20,10 @@ const trackSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Genre',
   }],
+  trackURL: {
+    type: String,
+    default: '',
+  },
 }, { timestamps: true });
 
 module.exports = mongoose.model('Track', trackSchema);

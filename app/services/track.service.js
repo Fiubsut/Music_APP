@@ -1,10 +1,13 @@
 const Track = require('../models/track.model.js');
 
 const createTrack = async (trackData) => {
-
-  const track = new Track(trackData);
-  await track.save();
-  return track;
+  try {
+    const track = new Track(trackData);
+    await track.save();
+    return track;
+  } catch (error) {
+    throw new Error('Error creating track: ' + error.message);
+  }
 };
 
 const getAllTracks = async () => {
@@ -35,7 +38,6 @@ const updateTrack = async (id, updateData) => {
 const deleteTrack = async (id) => {
   const track = await Track.findOneAndDelete({ _id: id });
   if (!track) throw new Error('Track not found');
-  return;
 };
 
 module.exports = {

@@ -31,6 +31,7 @@ const getTrack = async (req, res) => {
 const updateTrack = async (req, res) => {
   try {
     const track = await trackService.updateTrack(req.params.id, req.body);
+    if (!track) return res.status(404).json({ error: 'Track not found' });
     res.status(200).json({ message: 'Track updated successfully', track });
   } catch (error) {
     res.status(400).json({ error: error.message });
