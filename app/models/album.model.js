@@ -15,6 +15,10 @@ const albumSchema = new mongoose.Schema({
     ref: 'Artist',
     required: true,
   },
+  trackIDs: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Track',
+  }],
   coverImage: {
     type: String,
     default: '',

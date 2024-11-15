@@ -12,7 +12,6 @@ const createTrack = async (trackData) => {
 
 const getAllTracks = async () => {
   const tracks = await Track.find()
-    .populate('albumID', 'albumName')
     .populate('artistID', 'artistName')
     .populate('genreIDs', 'genreName');
   return tracks;
@@ -20,7 +19,6 @@ const getAllTracks = async () => {
 
 const getTrackById = async (id) => {
   const track = await Track.findOne({ _id: id })
-    .populate('albumID', 'albumName')
     .populate('artistID', 'artistName')
     .populate('genreIDs', 'genreName');
   return track;
@@ -28,7 +26,6 @@ const getTrackById = async (id) => {
 
 const updateTrack = async (id, updateData) => {
   const track = await Track.findOneAndUpdate({ _id: id }, updateData, { new: true })
-    .populate('albumID', 'albumName')
     .populate('artistID', 'artistName')
     .populate('genreIDs', 'genreName');
   if (!track) throw new Error('Track not found');

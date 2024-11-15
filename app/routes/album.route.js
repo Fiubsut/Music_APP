@@ -5,8 +5,10 @@ const albumController = require('../controllers/album.controller.js');
 
 router.post('/', albumController.createAlbum);
 
-router.get('/', albumController.getAllAlbums);
+router.post('/:id/removetrack', albumController.removeTrack);
+router.post('/:id/addtrack', albumController.addTrack);
 
+router.get('/', albumController.getAllAlbums);
 router.get('/:id', albumController.getAlbum);
 
 router.put('/:id', albumController.updateAlbum);
