@@ -50,17 +50,25 @@ const deleteUser = async (req, res) => {
 
   const changeInfor = async (req, res) => {
     try {
-      const { id } = req.params;
-      const updatedUser = await userService.changeInfor(id, req.body);
-      res.status(200).json({ message: 'User information updated successfully', user: updatedUser });
+        const { id } = req.params;
+        const { userName, email, oldPassword, newPassword } = req.body;
+
+        const updatedUser = await userService.changeInfor(id, { userName, email, oldPassword, newPassword });
+
+        res.status(200).json({ 
+            message: 'User information updated successfully', 
+            user: updatedUser 
+        });
     } catch (error) {
-      if (error.statusCode) {
-        res.status(error.statusCode).json({ error: error.message });
-      } else {
-        res.status(500).json({ error: 'An unexpected error occurred' });
-      }
+        if (error.statusCode) {
+            res.status(error.statusCode).json({ error: error.message });
+        } else {
+            console.error(error);
+            res.status(500).json({ error: 'An unexpected error occurred' });
+        }
     }
-  };
+  }
+
 
 const updatePicture = async (req, res) => {
   try {

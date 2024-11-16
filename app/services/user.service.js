@@ -38,59 +38,68 @@ const getAllUsers = async () => {
 };
 
 const deleteUser = async (id) => {
-    const user = await User.findOneAndDelete({ _id: id });
-    if (!user) throw new Error('User not found');
-    return;
-  };
+  const user = await User.findOneAndDelete({ _id: id });
+  if (!user) throw new Error('User not found');
+  return;
+};
 
+const changeInfor = async (userId, { userName, email, oldPassword, newPassword }) => {
+  const user = await User.findById(userId);
 
-  const changeInfor = async (id, updatedData) => {
-    const user = await User.findOne({ _id: id });
-    if (!user) {
-      throw new Error('User not found');
-    }
-  
-    // Kiểm tra nếu email mới tồn tại và không trùng với email hiện tại của người dùng
-    if (updatedData.email && updatedData.email !== user.email) {
-      const emailExists = await User.findOne({ email: updatedData.email });
-      if (emailExists) {
-        const error = new Error('Email already in use');
-        error.statusCode = 400;  // Thêm mã lỗi HTTP 400
-        throw error;
+  if (!user) {
+      const error = new Error('User not found');
+      error.statusCode = 404;
+      throw error;
+  }
+
+  if (oldPassword) {
+      const isMatch = await bcrypt.compare(oldPassword, user.password);
+      if (!isMatch) {
+          const error = new Error('Old password is incorrect');
+          error.statusCode = 400;
+          throw error;
       }
-    }
-  
-    // Cập nhật thông tin người dùng với dữ liệu mới
-    Object.assign(user, updatedData);
 
-    const hashedPassword = await bcrypt.hash(user.password, 10);
-    user.password = hashedPassword;
-    
-    // Lưu các thay đổi vào cơ sở dữ liệu
-    await user.save();
-    return user;
-  };
+      const isSamePassword = await bcrypt.compare(newPassword, user.password);
+      if (isSamePassword) {
+          const error = new Error('New password cannot be the same as the old password');
+          error.statusCode = 400;
+          throw error;
+      }
+
+      if (newPassword) {
+          user.password = await bcrypt.hash(newPassword, 10);
+      }
+  }
+
+  if (userName) user.userName = userName;
+  if (email) user.email = email;
+
+  await user.save();
+
+  const { password, ...updatedUserData } = user.toObject();
+
+  return updatedUserData;
+};
+
+module.exports = { changeInfor };
+
 
   const updatePicture = async (userId, pictureUrl) => {
     try {
-      // Kiểm tra nếu người dùng không tồn tại
       const user = await User.findOne({ _id: userId });
       if (!user) {
         throw new Error('User not found');
       }
   
-      // Kiểm tra nếu không có URL ảnh
       if (!pictureUrl) {
         throw new Error('No picture URL provided');
       }
   
-      // Cập nhật URL ảnh đại diện
       user.profilePicture = pictureUrl;
   
-      // Lưu các thay đổi vào cơ sở dữ liệu
       await user.save();
   
-      // Trả về thông tin người dùng không có mật khẩu
       return user.toObject({ versionKey: false, transform: (doc, ret) => { delete ret.password; } });
     } catch (error) {
       throw new Error('Error updating profile picture: ' + error.message);
