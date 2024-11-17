@@ -19,7 +19,10 @@ const getAllTracks = async () => {
 
 const getTrackById = async (id) => {
   const track = await Track.findOne({ _id: id })
-    .populate('artistID', 'artistName')
+    .populate({
+      path: 'trackIDs',
+      populate: { path: 'artistID', select: 'artistName' }, // Populate artistName trong track
+    })
     .populate('genreIDs', 'genreName');
   return track;
 };
