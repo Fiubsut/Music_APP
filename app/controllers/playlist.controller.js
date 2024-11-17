@@ -3,11 +3,12 @@ const playlistService = require('../services/playlist.service.js');
 const createPlaylist = async (req, res) => {
   try {
     const playlist = await playlistService.createPlaylist(req.body);
-    res.status(201).json({ message: 'Playlist created successfully', playlist });
+    res.status(201).json(playlist);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
+
 
 const getAllPlaylists = async (req, res) => {
   try {
