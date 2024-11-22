@@ -6,7 +6,7 @@ const albumRoutes = require('./app/routes/album.route.js');
 const genreRoutes = require('./app/routes/genre.route.js');
 const trackRoutes = require('./app/routes/track.route.js');
 const playlistRoutes = require('./app/routes/playlist.route.js');
-const likeRoutes = require('./app/routes/user.route.js');
+const likeRoutes = require('./app/routes/like.route.js');
 const adminRoutes = require('./app/routes/admin.route.js')
 const cors = require('cors');
 require('dotenv').config();

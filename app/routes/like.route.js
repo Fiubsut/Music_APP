@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const likeController = require('../controllers/like.controller.js');
-// const authenticate = require('../middlewares/authMiddleware.js');
 
 router.post('/', likeController.createLike);
 
