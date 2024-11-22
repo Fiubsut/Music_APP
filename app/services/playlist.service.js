@@ -21,19 +21,14 @@ const getPlaylistById = async (id) => {
 };
 
 const updatePlaylist = async (id, updateData) => {
-
   const newTrackId = updateData.trackIDs;
   if (existingPlaylist.trackIDs.includes(newTrackId)) {
     throw new Error('Track already exists in the playlist');
   }
-  const playlist = await Playlist.findOneAndUpdate(
-    { _id: id },
-    { $push: { trackIDs: newTrackId } },
-    { new: true }
-  )
+  const playlist = await Playlist.findOneAndUpdate({ _id: id }, updateData, { new: true })
     .populate('userID', 'userName')
     .populate('trackIDs', 'trackName');
-
+  if (!playlist) throw new Error('Playlist not found');
   return playlist;
 };
 
