@@ -38,6 +38,16 @@ const updatePlaylist = async (req, res) => {
   }
 };
 
+const removeTrackFromPlaylist = async (req, res) => {
+  try {
+    const { playlistId, trackId } = req.params;
+    const updatedPlaylist = await playlistService.removeTrackFromPlaylist(playlistId, trackId);
+    res.status(200).json({ message: 'Track removed successfully', updatedPlaylist });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
 const deletePlaylist = async (req, res) => {
   try {
     await playlistService.deletePlaylist(req.params.id);
@@ -53,4 +63,5 @@ module.exports = {
   getPlaylist,
   updatePlaylist,
   deletePlaylist,
+  removeTrackFromPlaylist,
 };

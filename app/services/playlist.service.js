@@ -43,7 +43,18 @@ const updatePlaylist = async (id, updateData) => {
   return playlist;
 };
 
+const removeTrackFromPlaylist = async (playlistId, trackId) => {
+  const playlist = await Playlist.findByIdAndUpdate(
+    playlistId,
+    { $pull: { trackIDs: trackId } }, // Xóa trackId khỏi danh sách trackIDs
+    { new: true }
+  )
+    .populate('userID', 'userName')
+    .populate('trackIDs', 'trackName');
 
+  if (!playlist) throw new Error('Playlist not found');
+  return playlist;
+};
 
 const deletePlaylist = async (id) => {
   const playlist = await Playlist.findOneAndDelete({ _id: id });
@@ -57,4 +68,5 @@ module.exports = {
   getPlaylistById,
   updatePlaylist,
   deletePlaylist,
+  removeTrackFromPlaylist,
 };
