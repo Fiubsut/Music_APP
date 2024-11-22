@@ -21,21 +21,7 @@ const getPlaylistById = async (id) => {
 };
 
 const updatePlaylist = async (id, updateData) => {
-  const updateQuery = {};
-
-  if (updateData.trackIDs) {
-    updateQuery.$addToSet = { trackIDs: { $each: updateData.trackIDs } };
-  }
-
-  if (updateData.playlistName) {
-    updateQuery.$set = { playlistName: updateData.playlistName };
-  }
-
-  const playlist = await Playlist.findOneAndUpdate(
-    { _id: id },
-    updateQuery,
-    { new: true }
-  )
+  const playlist = await Playlist.findOneAndUpdate({ _id: id }, updateData, { new: true })
     .populate('userID', 'userName')
     .populate('trackIDs', 'trackName');
 
