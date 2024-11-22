@@ -21,13 +21,28 @@ const getPlaylistById = async (id) => {
 };
 
 const updatePlaylist = async (id, updateData) => {
-  const playlist = await Playlist.findOneAndUpdate({ _id: id }, updateData, { new: true })
+  const updateQuery = {};
+
+  if (updateData.trackIDs) {
+    updateQuery.$addToSet = { trackIDs: { $each: updateData.trackIDs } };
+  }
+
+  if (updateData.playlistName) {
+    updateQuery.$set = { playlistName: updateData.playlistName };
+  }
+
+  const playlist = await Playlist.findOneAndUpdate(
+    { _id: id },
+    updateQuery,
+    { new: true }
+  )
     .populate('userID', 'userName')
     .populate('trackIDs', 'trackName');
 
   if (!playlist) throw new Error('Playlist not found');
   return playlist;
 };
+
 
 
 const deletePlaylist = async (id) => {
