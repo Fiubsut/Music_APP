@@ -46,7 +46,7 @@ const updatePlaylist = async (id, updateData) => {
 const removeTrackFromPlaylist = async (playlistId, trackId) => {
   const playlist = await Playlist.findByIdAndUpdate(
     playlistId,
-    { $pull: { trackIDs: trackId } }, // Xóa trackId khỏi danh sách trackIDs
+    { $pull: { trackIDs: trackId } },
     { new: true }
   )
     .populate('userID', 'userName')

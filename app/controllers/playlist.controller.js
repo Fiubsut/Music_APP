@@ -39,11 +39,17 @@ const updatePlaylist = async (req, res) => {
 };
 
 const removeTrackFromPlaylist = async (req, res) => {
+  console.log('Playlist ID:', req.params.id);
+  console.log('Track ID:', req.params.trackId);
+
   try {
-    const { playlistId, trackId } = req.params;
-    const updatedPlaylist = await playlistService.removeTrackFromPlaylist(playlistId, trackId);
-    res.status(200).json({ message: 'Track removed successfully', updatedPlaylist });
+    const updatedPlaylist = await playlistService.removeTrackFromPlaylist(
+      req.params.id,
+      req.params.trackId
+    );
+    res.status(200).json({ message: 'Track removed successfully', playlist: updatedPlaylist });
   } catch (error) {
+    console.error(error);
     res.status(400).json({ error: error.message });
   }
 };
