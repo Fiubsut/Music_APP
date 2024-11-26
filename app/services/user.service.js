@@ -82,29 +82,26 @@ const changeInfor = async (userId, { userName, email, oldPassword, newPassword }
   return updatedUserData;
 };
 
-module.exports = { changeInfor };
-
-
-  const updatePicture = async (userId, pictureUrl) => {
-    try {
-      const user = await User.findOne({ _id: userId });
-      if (!user) {
-        throw new Error('User not found');
-      }
-  
-      if (!pictureUrl) {
-        throw new Error('No picture URL provided');
-      }
-  
-      user.profilePicture = pictureUrl;
-  
-      await user.save();
-  
-      return user.toObject({ versionKey: false, transform: (doc, ret) => { delete ret.password; } });
-    } catch (error) {
-      throw new Error('Error updating profile picture: ' + error.message);
+const updatePicture = async (userId, pictureUrl) => {
+  try {
+    const user = await User.findOne({ _id: userId });
+    if (!user) {
+      throw new Error('User not found');
     }
-  };
+
+    if (!pictureUrl) {
+      throw new Error('No picture URL provided');
+    }
+
+    user.profilePicture = pictureUrl;
+
+    await user.save();
+
+    return user.toObject({ versionKey: false, transform: (doc, ret) => { delete ret.password; } });
+  } catch (error) {
+    throw new Error('Error updating profile picture: ' + error.message);
+  }
+};
   
   
 
